@@ -1,0 +1,29 @@
+name: Build Board Images
+on: [push]
+jobs:
+  build-images:
+    strategy:
+      matrix:
+        board_name:
+          - raspberrypi4_64_defconfig
+    # continue-on-error: true # allow boards to continue even if one fails
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: Enable ccache
+        uses: actions/cache@v3
+        with:
+          path: .buildroot-ccache-${{ matrix.board_name }}
+          key: build_cache-${{ matrix.board_name }}-${{ github.sha }}
+          restore-keys: build_cache-${{ matrix.board_name }}-
+      - name: generate config
+        run: make ${{ matrix.board_name }}
+      - name: build
+        run: make
+      - name: upload generated images
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.board_name }}-images
+          path: output # TODO: figure out what this path actually is
+          # path: output/${{ matrix.board_name }}/images/*.img*
