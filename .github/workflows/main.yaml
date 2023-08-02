@@ -25,5 +25,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.board_name }}-images
-          # path: output/images/**/*.img*
-          path: output/images/*
+          path: output/images/**.img*
