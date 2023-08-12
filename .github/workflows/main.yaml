@@ -14,7 +14,7 @@ jobs:
       - name: Enable ccache
         uses: actions/cache@v3
         with:
-          path: .buildroot-ccache-${{ matrix.board_name }}
+          path: output
           key: build_cache-${{ matrix.board_name }}-${{ github.sha }}
           restore-keys: build_cache-${{ matrix.board_name }}-
       - name: generate config
