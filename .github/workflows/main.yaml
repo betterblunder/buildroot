@@ -14,13 +14,13 @@ jobs:
       - name: Enable ccache
         uses: actions/cache@v3
         with:
-          path: $HOME/buildroot-ccache
+          path: $PWD/.buildroot-ccache
           key: build_cache-${{ matrix.board_name }}-${{ github.sha }}
           restore-keys: build_cache-${{ matrix.board_name }}-
       - name: generate config
         run: make ${{ matrix.board_name }}
       - name: build
-        run: BR2_USE_CCACHE=1 make BR2_CCACHE=y BR_CACHE_DIR=$HOME/buildroot-ccache
+        run: BR2_USE_CCACHE=1 make BR2_CCACHE=y BR_CACHE_DIR=$PWD/.buildroot-ccache
       - name: upload generated images
         uses: actions/upload-artifact@v3
         with:
