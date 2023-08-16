@@ -25,7 +25,7 @@ jobs:
       # - name: build
       #   run: make BR2_CCACHE=y
       - name: build subtarget # should be fast to build, easy to debug build cache steps
-        run: make BR2_CCACHE=y host-zlib
+        run: make BR2_CCACHE=y host-zlib && ls -lA /tmp/buildroot-ccache
       - name: upload generated images
         uses: actions/upload-artifact@v3
         with:
