@@ -10,14 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BR2_USE_CCACHE: 1
-      BR2_CCACHE_DIR: /tmp/buildroot-ccache
+      BR2_CCACHE_DIR: .buildroot-ccache
     steps:
       - name: checkout
         uses: actions/checkout@v3
       - name: Enable ccache
         uses: actions/cache@v3
         with:
-          path: $BR2_CCACHE_DIR
+          path: .buildroot-ccache
           key: build_cache-${{ matrix.board_name }}-${{ github.sha }}
           restore-keys: build_cache-${{ matrix.board_name }}-
       - name: generate config
@@ -25,7 +25,7 @@ jobs:
       # - name: build
       #   run: make BR2_CCACHE=y
       - name: build subtarget # should be fast to build, easy to debug build cache steps
-        run: make BR2_CCACHE=y host-zlib && ls -lA /tmp/buildroot-ccache
+        run: make BR2_CCACHE=y host-zlib && ls -lA $BR2_CCACHE_DIR
       - name: upload generated images
         uses: actions/upload-artifact@v3
         with:
