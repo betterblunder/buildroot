@@ -6,7 +6,7 @@ jobs:
       matrix:
         board_name:
           - raspberrypi4_64_defconfig
-    # continue-on-error: true # allow boards to continue even if one fails
+    continue-on-error: true # allow other boards to continue even if one fails
     runs-on: ubuntu-latest
     env:
       BR2_USE_CCACHE: 1
