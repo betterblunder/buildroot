@@ -26,3 +26,4 @@ jobs:
         with:
           name: ${{ matrix.board_name }}-images
           path: output/images/**.img*
+
